@@ -1,13 +1,12 @@
-
+import { RouterProvider } from "react-router-dom";
+import { MainRoute } from "./Route/Route";
 
 function App() {
- 
-
   return (
     <>
-      <div className="w-52 h-16 bg-amber-700">hello</div>
+      <RouterProvider router={MainRoute} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

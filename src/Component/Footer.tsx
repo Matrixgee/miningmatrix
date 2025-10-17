@@ -1,11 +1,5 @@
-import React from 'react'
-
 const Footer = () => {
-  return (
-    <div>
-      hello world
-    </div>
-  )
-}
+  return <div className="w-full h-[40vh] bg-pink-500">hello world</div>;
+};
 
-export default Footer
+export default Footer;
