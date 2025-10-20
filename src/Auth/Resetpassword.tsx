@@ -5,30 +5,32 @@ import InputField from "../Component/Inputfield";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const ForgotPassword = () => {
-  const [identifier, setIdentifier] = useState("");
+const ResetPassword = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const toastId = toast.loading("Sending reset link...");
+    const toastId = toast.loading("Resetting password...");
     setLoading(true);
 
+    if (password !== confirmPassword) {
+      toast.dismiss(toastId);
+      toast.error("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const payload: Record<string, string> = {};
-      if (identifier.includes("@")) payload.email = identifier;
-      else payload.userName = identifier;
+      // Example: change this to match your backend API
+      const response = await axios.post("/user/reset-password", { password });
 
-      // Example: change this endpoint to your actual one
-      const response = await axios.post("/user/forgot-password", payload);
-
-      toast.success(response.data?.message || "Reset link sent to your email.");
-      navigate("/reset-password");
+      toast.success(response.data?.message || "Password reset successful!");
+      navigate("/auth/login");
     } catch (error: any) {
-      toast.error(
-        error.response?.data?.message || "Failed to send reset link."
-      );
+      toast.error(error.response?.data?.message || "Password reset failed.");
     } finally {
       toast.dismiss(toastId);
       setLoading(false);
@@ -39,22 +41,32 @@ const ForgotPassword = () => {
     <div className="w-full max-w-md px-6">
       <div className="bg-[#22A0B7] rounded-lg shadow-lg p-8">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">
-          Forgot Password
+          Reset Password
         </h2>
 
         <p className="text-sm text-gray-100 text-center mb-6">
-          Enter your email or username, and we’ll send you instructions to reset
-          your password.
+          Enter your new password below.
         </p>
 
         <form onSubmit={handleSubmit}>
-          <div className="mb-6">
+          <div className="mb-5">
             <InputField
-              label="Email or Username"
-              type="text"
-              placeholder="Enter your email or username"
-              value={identifier}
-              onChange={(v) => setIdentifier(v)}
+              label="New Password"
+              type="password"
+              placeholder="Enter new password"
+              value={password}
+              onChange={(v) => setPassword(v)}
+              required
+            />
+          </div>
+
+          <div className="mb-8">
+            <InputField
+              label="Confirm Password"
+              type="password"
+              placeholder="Re-enter password"
+              value={confirmPassword}
+              onChange={(v) => setConfirmPassword(v)}
               required
             />
           </div>
@@ -66,7 +78,7 @@ const ForgotPassword = () => {
               loading ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading ? "Resetting..." : "Reset Password"}
           </button>
         </form>
 
@@ -84,4 +96,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

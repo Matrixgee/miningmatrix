@@ -1,64 +1,51 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
+import { Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const AuthLayout = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const [animateIn, setAnimateIn] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
 
-  // Get page title based on current route
-  const pageTitle = useMemo(() => {
-    const path = location.pathname;
-    if (path.includes("login")) return "Login";
-    if (path.includes("register")) return "Register";
-    if (path.includes("forgot-password")) return "Reset Password";
-    if (path.includes("verify-email")) return "Verify Email";
-    return "Authentication";
-  }, [location.pathname]);
+  console.log(setImageLoaded);
 
-  console.log(pageTitle);
+  // const pageTitle = useMemo(() => {
+  //   const path = location.pathname;
+  //   if (path.includes("login")) return "Login";
+  //   if (path.includes("register")) return "Register";
+  //   if (path.includes("forgot-password")) return "Reset Password";
+  //   if (path.includes("verify-email")) return "Verify Email";
+  //   return "Authentication";
+  // }, [location.pathname]);
 
   useEffect(() => {
-    // Preload the logo image
-    const img = new Image();
-
-    img.onload = () => setImageLoaded(true);
-
-    // Start animation after a short delay to ensure smooth transition
-    const timer = setTimeout(() => {
-      setAnimateIn(true);
-    }, 100);
-
+    const timer = setTimeout(() => setAnimateIn(true), 150);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="w-full min-h-[100dvh] bg-gradient-to-b from-[#2A0F3D] to-[#1A0825] flex justify-between items-center flex-col py-6 relative overflow-hidden">
-      {/* Background decoration */}
+    <div className="w-full min-h-[100dvh] bg-gradient-to-b from-[#22A0B7] to-[#0a3d46] flex flex-col justify-between items-center py-8 relative overflow-hidden">
+      {/* Gradient Bubbles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-600 opacity-10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-blue-600 opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-white opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#22A0B7] opacity-10 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Logo Header */}
+      {/* Header */}
       <div
-        className={`w-full max-w-md px-4  transition-all  duration-700 ease-out transform ${
+        className={`w-full max-w-md px-4 text-center transition-all duration-700 ease-out ${
           animateIn && imageLoaded
             ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-8"
+            : "opacity-0 -translate-y-6"
         }`}
-      ></div>
+      >
+        {/* <h1 className="text-white text-3xl font-bold tracking-wide">
+          {pageTitle}
+        </h1> */}
+      </div>
 
-      {/* Page Title */}
+      {/* Outlet */}
       <div
-        className={`w-full max-w-md px-4 text-center transition-all duration-700 ease-out delay-200 transform ${
-          animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        }`}
-      ></div>
-
-      {/* Main Content Area */}
-      <div
-        className={`w-full max-w-md flex-grow flex items-center justify-center transition-all duration-700 ease-out delay-300 transform ${
+        className={`w-full max-w-md flex-grow flex items-center justify-center transition-all duration-700 ease-out delay-300 ${
           animateIn
             ? "opacity-100 translate-y-0 scale-100"
             : "opacity-0 translate-y-8 scale-95"
@@ -68,29 +55,25 @@ const AuthLayout = () => {
       </div>
 
       {/* Footer */}
-      <div
-        className={`w-full max-w-md px-6 transition-all duration-700 ease-out delay-500 transform ${
+      <footer
+        className={`w-full max-w-md px-6 transition-all duration-700 ease-out delay-500 ${
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <div className="border-t border-gray-800 mt-6 pt-6">
-          {/* <p className="text-center text-gray-400 text-sm">
-            Copyright © {new Date().getFullYear()} TOPCAPITALMINING.
-            <br className="md:hidden" /> All Rights Reserved.
-          </p> */}
-          <div className="flex justify-center mt-4 space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white text-sm">
+        <div className="border-t border-white/10 mt-8 pt-6">
+          <div className="flex justify-center space-x-6">
+            <a href="#" className="text-white/60 hover:text-white text-sm">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">
+            <a href="#" className="text-white/60 hover:text-white text-sm">
               Terms of Service
             </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm">
+            <a href="#" className="text-white/60 hover:text-white text-sm">
               Support
             </a>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const Hero = ({
               key={i}
               className={`${
                 i === 1
-                  ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500"
+                  ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#22A0B7]"
                   : ""
               }`}
             >
