@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Hero = ({
   title = "Empowering Financial Growth",
   subtitle = "Invest smarter with real-time AI insights designed to help you grow securely and confidently.",
   primaryBtn = "Join Now",
-  secondaryBtn = "View Plans",
+  // secondaryBtn = "View Plans",
   features = [
     { value: "99.9%", label: "Uptime Reliability" },
     { value: "Fast", label: "Payout Processing" },
@@ -12,6 +13,8 @@ const Hero = ({
     { value: "24/7", label: "Customer Support" },
   ],
 }) => {
+  const nav = useNavigate();
+
   return (
     <section className="relative bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto text-center">
@@ -53,12 +56,15 @@ const Hero = ({
           transition={{ delay: 0.5, duration: 0.8 }}
           className="flex justify-center gap-4"
         >
-          <button className="px-6 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">
+          <button
+            onClick={() => nav("/auth/register")}
+            className="px-12 py-5 rounded-full cursor-pointer bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+          >
             {primaryBtn}
           </button>
-          <button className="px-6 py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          {/* <button className="px-6 py-3 rounded-full border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
             {secondaryBtn}
-          </button>
+          </button> */}
         </motion.div>
 
         {/* Feature Grid */}

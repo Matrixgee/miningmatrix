@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div className="w-full h-[12vh] bg-gradient-to-b from-[#0A0A0A] to-[#0c011a] flex justify-around items-center">
       {/* Logo */}
-      <div className="w-[30%] mt-5 h-full md:w-[25%] flex justify-center items-center">
+      <div className="w-[70%] mt-5 h-full md:w-[25%]  flex justify-center items-center">
         <img src={logo} alt="Logo" className=" w-full h-full object-cover" />
       </div>
 

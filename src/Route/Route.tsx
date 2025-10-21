@@ -9,6 +9,11 @@ import Register from "../Auth/Register";
 import ForgotPassword from "../Auth/Forgetpassword";
 import ResetPassword from "../Auth/Resetpassword";
 
+import Adminlayout from "../Layout/Adminlayout";
+import AdminOverview from "../Admin/adminoverview";
+import AllTransactions from "../Admin/Alltransaction";
+import Allusers from "../Admin/AllUsers";
+
 export const MainRoute = createBrowserRouter([
   {
     path: "",
@@ -47,6 +52,25 @@ export const MainRoute = createBrowserRouter([
       {
         path: "reset-password",
         element: <ResetPassword />,
+      },
+    ],
+  },
+
+  {
+    path: "admin",
+    element: <Adminlayout />,
+    children: [
+      {
+        path: "adminhome",
+        element: <AdminOverview />,
+      },
+      {
+        path: "alltransactions",
+        element: <AllTransactions />,
+      },
+      {
+        path: "allusers",
+        element: <Allusers />,
       },
     ],
   },
