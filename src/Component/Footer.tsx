@@ -21,10 +21,10 @@ const Footer = () => {
             </h2>
             <p className="text-gray-400">Davis Farm Dr NW Kenneshaw, Georgia</p>
             <a
-              href="mailto:miningmatrixcapital.com"
+              href="mailto:support@miningmatrixcapitalpro.com"
               className="text-[#22A0B7] hover:text-white transition-colors"
             >
-              miningmatrixcapital.com
+              support@miningmatrixcapitalpro.com
             </a>
           </div>
         </div>
