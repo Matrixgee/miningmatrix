@@ -38,8 +38,8 @@ const ContactUs = () => {
               <FaEnvelope className="text-3xl" style={{ color: brandColor }} />
             ),
             title: "Email",
-            info: "topcapitalmining@gmail.com",
-            link: "mailto:topcapitalmining@gmail.com",
+            info: "support@miningmatrixcapitalpro.com",
+            link: "mailto:support@miningmatrixcapitalpro.com",
           },
           {
             icon: (

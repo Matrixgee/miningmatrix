@@ -115,7 +115,7 @@ const Faq = () => {
             Still need help? Reach out to our team.
           </p>
           <a
-            href="mailto:miningmatrixcapital.com"
+            href="mailto:support@miningmatrixcapitalpro.com"
             className="inline-flex items-center px-6 py-3 bg-[#22A0B7] text-white font-medium rounded-lg hover:bg-[#1a8ba0] transition-all duration-300 shadow-lg"
           >
             Contact Support
