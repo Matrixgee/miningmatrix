@@ -15,6 +15,11 @@ import AllTransactions from "../Admin/Alltransaction";
 import Allusers from "../Admin/AllUsers";
 import Userlayout from "../Layout/userlayout";
 import Overview from "../Clients/Overview";
+import Deposit from "../Clients/deposit";
+import History from "../Clients/history";
+import Withdraw from "../Clients/withdraw";
+import Plans from "../Clients/plans";
+import Market from "../Clients/market";
 
 export const MainRoute = createBrowserRouter([
   {
@@ -84,6 +89,26 @@ export const MainRoute = createBrowserRouter([
       {
         path: "overview",
         element: <Overview />,
+      },
+      {
+        path: "deposit",
+        element: <Deposit />,
+      },
+      {
+        path: "history",
+        element: <History />,
+      },
+      {
+        path: "withdraw",
+        element: <Withdraw />,
+      },
+      {
+        path: "my-plans",
+        element: <Plans />,
+      },
+      {
+        path: "market",
+        element: <Market />,
       },
     ],
   },

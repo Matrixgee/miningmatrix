@@ -41,7 +41,7 @@ const PhoneNav = () => {
           key={nav.path}
           className={`w-[22%] h-full cursor-pointer transition-all duration-500 flex justify-around items-center flex-col ${
             location.pathname === nav.path
-              ? "text-green-600 font-semibold"
+              ? "text-[#22A0B7] font-semibold"
               : "text-gray-500"
           }`}
           onClick={() => handleMenuClick(nav.path)}
