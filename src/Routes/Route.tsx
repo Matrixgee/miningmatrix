@@ -13,6 +13,8 @@ import Adminlayout from "../Layout/Adminlayout";
 import AdminOverview from "../Admin/adminoverview";
 import AllTransactions from "../Admin/Alltransaction";
 import Allusers from "../Admin/AllUsers";
+import Userlayout from "../Layout/userlayout";
+import Overview from "../Clients/Overview";
 
 export const MainRoute = createBrowserRouter([
   {
@@ -71,6 +73,17 @@ export const MainRoute = createBrowserRouter([
       {
         path: "allusers",
         element: <Allusers />,
+      },
+    ],
+  },
+
+  {
+    path: "user",
+    element: <Userlayout />,
+    children: [
+      {
+        path: "overview",
+        element: <Overview />,
       },
     ],
   },
