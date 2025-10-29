@@ -1,51 +1,61 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import InputField from "../Component/Inputfield";
-import axios from "axios";
+import axios from "../config/axiosconfig";
 import toast from "react-hot-toast";
+import { isAxiosError } from "axios";
+import { setToken, setUser } from "../Global/UserSlice"; // ✅ adjust this import path
+import { setAdminToken } from "../Global/AdminSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
-  const url = `${import.meta.env.VITE_DEVE_URL}`;
-  console.log(url);
+  const [userNameOrEmail, setuserNameOrEmail] = useState<string>(""); // renamed from detail
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const HandleLogin = async (e: FormEvent) => {
     e.preventDefault();
 
-    const toastId = toast.loading("Please wait...");
-    setLoading(true);
-    setError("");
+    if (!userNameOrEmail || !password) {
+      toast.error("Email/Username and Password are required.");
+      return;
+    }
 
-    const payload: Record<string, string> = { password };
-    if (identifier.includes("@")) payload.email = identifier;
-    else payload.userName = identifier;
+    setLoading(true);
+    const toastLoadingId = toast.loading("Logging in...");
 
     try {
-      const response = await axios.post("/user/login", payload);
-      const { token, data } = response.data;
+      const data = { userNameOrEmail: userNameOrEmail, password };
+      const res = await axios.post("/user/login", data);
 
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(data));
-
-      if (data?.isAdmin) {
-        navigate("/admin/allusers");
-        toast.success("Login successful, Welcome Admin");
+      setTimeout(() => {
+        if (res.data.data.isAdmin) {
+          dispatch(setAdminToken(res.data.data.token));
+          navigate("/admin/adminhome");
+        } else {
+          dispatch(setUser(res.data.data));
+          dispatch(setToken(res.data.token));
+          //  localStorage.setItem("userId", userId);
+          navigate("/user/overview");
+        }
+      }, 3000);
+    } catch (error: unknown) {
+      if (isAxiosError(error)) {
+        const errorMsg =
+          error.response?.data?.message || "An unexpected error occurred";
+        toast.error(errorMsg);
+        setError(errorMsg);
       } else {
-        navigate("/user/overview");
-        toast.success(`Welcome ${data?.fullName}`);
+        toast.error("Error occurred");
+        setError("An unexpected error occurred");
       }
-    } catch (error: any) {
-      console.error("Login error:", error);
-      toast.error(error.response?.data?.message || "Login failed");
     } finally {
-      toast.dismiss(toastId);
       setLoading(false);
+      toast.dismiss(toastLoadingId);
     }
   };
 
@@ -62,15 +72,15 @@ const Login = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={HandleLogin}>
           <div className="mb-5">
             <InputField
               label="Email or Username"
               type="text"
               placeholder="Enter your email or username"
-              value={identifier}
+              value={userNameOrEmail}
               onChange={(value) => {
-                setIdentifier(value);
+                setuserNameOrEmail(value);
                 if (error) setError("");
               }}
               required

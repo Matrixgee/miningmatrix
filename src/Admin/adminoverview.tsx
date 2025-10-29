@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { ArrowDownLeft, CreditCard, DollarSign, Users } from "lucide-react";
 // import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import axios from "axios";
-// import axios from "../config/axiosconfig";
+// import axios from "axios";
+import axios from "../config/axiosconfig";
 // import { setAllUsers } from "../Global/AdminSlice"; // adjust imports as needed
 
 const AdminOverview = () => {
